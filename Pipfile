@@ -8,6 +8,7 @@ django = "~=3.2"
 
 [dev-packages]
 ipython = "*"
+flake8 = "*"
 
 [requires]
 python_full_version = "3.9.7"
