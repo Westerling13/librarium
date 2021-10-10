@@ -12,8 +12,10 @@ class User(AbstractUser):
 
     @transaction.atomic
     def save(self, *args, **kwargs):
-        super().save(args, kwargs)
-        Profile.objects.create(user=self)
+        super().save(*args, **kwargs)
+        if not hasattr(self, 'profile'):
+            profile = Profile(user=self)
+            profile.save()
 
 
 class Profile(models.Model):
