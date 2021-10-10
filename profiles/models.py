@@ -14,7 +14,7 @@ class User(AbstractUser):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, verbose_name='Профиль', on_delete=models.CASCADE)
+    user = models.OneToOneField(User, verbose_name='Пользователь', on_delete=models.CASCADE)
     forename = models.CharField('Имя', max_length=255, blank=True)
     surname = models.CharField('Фамилия', max_length=255, blank=True)
     patronymic = models.CharField('Отчество', max_length=255, blank=True)
