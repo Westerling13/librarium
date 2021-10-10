@@ -26,4 +26,4 @@ class Profile(models.Model):
         verbose_name_plural = 'Профили'
 
     def __str__(self):
-        return f'Профиль#{self.id}'
+        return f'Профиль - {self.user.username}'
