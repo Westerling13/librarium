@@ -7,6 +7,9 @@ class User(AbstractUser):
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
 
+    def __str__(self):
+        return f'Пользователь#{self.id}'
+
     @transaction.atomic
     def save(self, *args, **kwargs):
         super().save(args, kwargs)
@@ -22,3 +25,6 @@ class Profile(models.Model):
     class Meta:
         verbose_name = 'Профиль'
         verbose_name_plural = 'Профили'
+
+    def __str__(self):
+        return f'Профиль#{self.id}'
