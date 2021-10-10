@@ -10,5 +10,4 @@ django = "~=3.2"
 ipython = "*"
 
 [requires]
-python_version = "3.9"
 python_full_version = "3.9.7"
