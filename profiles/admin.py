@@ -7,7 +7,7 @@ from profiles.user import User
 
 @admin.register(User)
 class UserAdmin(DjangoUserAdmin):
-    """Административный класс для модели Пользователя"""
+    pass
 
 
 @admin.register(Profile)
