@@ -2,6 +2,14 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models, transaction
 
 
+class AutoDateModel(models.Model):
+    dt_created = models.DateTimeField('Дата создания', auto_now_add=True)
+    dt_updated = models.DateTimeField('Дата изменения', auto_now=True)
+
+    class Meta:
+        abstract = True
+
+
 class User(AbstractUser):
     class Meta:
         verbose_name = 'Пользователь'
@@ -15,7 +23,7 @@ class User(AbstractUser):
             profile.save()
 
 
-class Profile(models.Model):
+class Profile(AutoDateModel):
     user = models.OneToOneField(User, verbose_name='Пользователь', on_delete=models.CASCADE)
     forename = models.CharField('Имя', max_length=255, blank=True)
     surname = models.CharField('Фамилия', max_length=255, blank=True)
