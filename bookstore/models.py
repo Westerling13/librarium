@@ -17,7 +17,7 @@ class Author(AutoDateModel):
 
     @property
     def short_name(self):
-        name = f'{self.surname} {self.surname[0]}.'
+        name = f'{self.surname} {self.forename[0]}.'
         if self.patronymic:
             name += f' {self.patronymic[0]}.'
         return name
