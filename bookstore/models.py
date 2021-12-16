@@ -28,6 +28,7 @@ class Book(AutoDateModel):
     title = models.CharField('Название', max_length=255)
     description = models.TextField('Описание', max_length=1000, blank=True)
     dt_release = models.DateField('Дата выхода')
+    category = models.ManyToManyField('Category', verbose_name='Категории', related_name='categories')
 
     class Meta:
         verbose_name = 'Книга'
@@ -35,3 +36,11 @@ class Book(AutoDateModel):
 
     def __str__(self):
         return self.title
+
+
+class Category(AutoDateModel):
+    title = models.CharField('Название', max_length=255)
+
+    class Meta:
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
