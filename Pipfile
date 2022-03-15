@@ -6,10 +6,11 @@ name = "pypi"
 [packages]
 django = "~=3.2"
 python-dotenv = "*"
+djangorestframework = "*"
 
 [dev-packages]
-ipython = "*"
 flake8 = "*"
+ipython = "*"
 
 [requires]
 python_full_version = "3.9.7"
