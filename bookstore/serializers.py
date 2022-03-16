@@ -6,7 +6,7 @@ from bookstore.models import Book
 class BookListCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
-        fields = ['id', 'title']
+        fields = ['id', 'title', 'dt_release']
 
 
 class BookSerializer(serializers.ModelSerializer):
