@@ -5,6 +5,6 @@ from bookstore.views import BookListCreateAPIView, BookDetailAPIView
 appname = 'bookstore'
 
 urlpatterns = [
-    path('', BookListCreateAPIView.as_view(), name='list'),
-    path('<int:book_id>/', BookDetailAPIView.as_view(), name='detail'),
+    path('books/', BookListCreateAPIView.as_view(), name='book_list'),
+    path('books/<int:book_id>/', BookDetailAPIView.as_view(), name='book_detail'),
 ]

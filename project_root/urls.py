@@ -17,6 +17,6 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('api/books/', include('bookstore.urls')),
+    path('api/bookstore/', include('bookstore.urls')),
     path('admin/', admin.site.urls),
 ]
