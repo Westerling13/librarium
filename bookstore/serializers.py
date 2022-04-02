@@ -2,7 +2,7 @@ from django.db.transaction import atomic
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
-from bookstore.models import Book, Author
+from bookstore.models import Book, Author, Category
 
 
 class AuthorSerializer(serializers.ModelSerializer):
@@ -42,3 +42,9 @@ class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model = Book
         fields = ['title', 'authors']
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = ['id', 'title']
