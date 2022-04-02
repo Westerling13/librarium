@@ -8,25 +8,18 @@ from bookstore.models import Book, Author
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Author
-        fields = ['forename', 'surname', 'patronymic', 'short_name']
-        extra_kwargs = {
-            'forename': {'write_only': True},
-            'surname': {'write_only': True},
-            'patronymic': {'write_only': True},
-            'short_name': {'read_only': True},
-        }
+        fields = ['id', 'forename', 'surname', 'patronymic']
 
 
 class BookListCreateSerializer(serializers.ModelSerializer):
-    authors = serializers.ListField(child=AuthorSerializer(), write_only=True, allow_null=True)
+    authors = AuthorSerializer(many=True)
     authors_ids = serializers.ListField(child=serializers.IntegerField(), write_only=True, allow_null=True)
-    authors_names = serializers.SerializerMethodField()
 
     EMPTY_AUTHORS_VALIDATION_MESSAGE = 'У книги должны быть указаны авторы.'
 
     class Meta:
         model = Book
-        fields = ['id', 'title', 'dt_release', 'authors', 'authors_names', 'authors_ids']
+        fields = ['id', 'title', 'dt_release', 'authors', 'authors_ids']
 
     def validate(self, attrs):
         if not attrs['authors'] and not attrs['authors_ids']:
@@ -41,9 +34,6 @@ class BookListCreateSerializer(serializers.ModelSerializer):
         book = super().create(validated_data)
         book.authors.add(*authors)
         return book
-
-    def get_authors_names(self, book):
-        return book.authors.short_names()
 
 
 class BookSerializer(serializers.ModelSerializer):
