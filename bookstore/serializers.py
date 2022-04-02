@@ -47,11 +47,8 @@ class BookListCreateSerializer(serializers.ModelSerializer):
 
 
 class BookSerializer(serializers.ModelSerializer):
-    author_name = serializers.SerializerMethodField(help_text='ФИО автора')
+    authors = AuthorSerializer(many=True)
 
     class Meta:
         model = Book
-        fields = ['title', 'author']
-
-    def get_author_name(self, book):
-        return book.author.short_name
+        fields = ['title', 'authors']
