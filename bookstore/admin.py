@@ -10,7 +10,7 @@ class AuthorAdmin(admin.ModelAdmin):
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
-    raw_id_fields = ('author',)
+    raw_id_fields = ('authors', 'categories')
 
 
 @admin.register(Category)
