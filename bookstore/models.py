@@ -50,6 +50,7 @@ class Book(AutoDateModel):
 
 class Category(AutoDateModel):
     DEFAULT_TITLE = 'Без категории'
+    
     title = models.CharField('Название', max_length=255)
 
     class Meta:
