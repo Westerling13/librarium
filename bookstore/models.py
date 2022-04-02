@@ -3,10 +3,20 @@ from django.db import models
 from profiles.models import AutoDateModel
 
 
+class AuthorQuerySet(models.QuerySet):
+    def short_names(self):
+        short_names = []
+        for author in self.all():
+            short_names.append(author.short_name)
+        return short_names
+
+
 class Author(AutoDateModel):
     forename = models.CharField('Имя', max_length=255)
     surname = models.CharField('Фамилия', max_length=255)
     patronymic = models.CharField('Отчество', max_length=255, blank=True)
+
+    objects = AuthorQuerySet.as_manager()
 
     class Meta:
         verbose_name = 'Автор'
@@ -19,16 +29,16 @@ class Author(AutoDateModel):
     def short_name(self):
         name = f'{self.surname} {self.forename[0]}.'
         if self.patronymic:
-            name += f' {self.patronymic[0]}.'
+            name += f'{self.patronymic[0]}.'
         return name
 
 
 class Book(AutoDateModel):
-    author = models.ManyToManyField('Author', verbose_name='Авторы', related_name='authors')
+    authors = models.ManyToManyField('Author', verbose_name='Авторы')
     title = models.CharField('Название', max_length=255)
     description = models.TextField('Описание', max_length=1000, blank=True)
     dt_release = models.DateField('Дата выхода')
-    category = models.ManyToManyField('Category', verbose_name='Категории', related_name='categories')
+    categories = models.ManyToManyField('Category', verbose_name='Категории')
 
     class Meta:
         verbose_name = 'Книга'
