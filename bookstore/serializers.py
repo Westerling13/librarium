@@ -21,12 +21,13 @@ class BookListCreateSerializer(serializers.ModelSerializer):
     authors = AuthorSerializer(many=True)
     authors_ids = serializers.ListField(child=serializers.IntegerField(), write_only=True, allow_null=True)
     categories = CategorySerializer(many=True)
+    categories_ids = serializers.ListField(child=serializers.IntegerField(), write_only=True, allow_null=True)
 
     EMPTY_AUTHORS_VALIDATION_MESSAGE = 'У книги должны быть указаны авторы.'
 
     class Meta:
         model = Book
-        fields = ['id', 'title', 'dt_release', 'authors', 'authors_ids', 'categories']
+        fields = ['id', 'title', 'dt_release', 'authors', 'authors_ids', 'categories', 'categories_ids']
 
     def validate(self, attrs):
         if not attrs['authors'] and not attrs['authors_ids']:
@@ -37,6 +38,7 @@ class BookListCreateSerializer(serializers.ModelSerializer):
     @atomic
     def create(self, validated_data):
         categories = [Category.objects.create(**category) for category in validated_data.pop('categories')]
+        categories.extend(list(Category.objects.filter(id__in=validated_data.pop('categories_ids'))))
         if not categories:
             categories.append(Category.objects.get(title=Category.DEFAULT_TITLE))
         authors = [Author.objects.create(**author) for author in validated_data.pop('authors')]
