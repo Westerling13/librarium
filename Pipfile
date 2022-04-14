@@ -7,6 +7,8 @@ name = "pypi"
 django = "~=3.2"
 python-dotenv = "*"
 djangorestframework = "*"
+django-oauth-toolkit = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 flake8 = "*"
