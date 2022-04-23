@@ -46,6 +46,7 @@ class Book(AutoDateModel):
         on_delete=models.SET_NULL,
         null=True, blank=True,
     )
+    copies_number = models.PositiveIntegerField('Количество экземпляров', default=1)
 
     class Meta:
         verbose_name = 'Книга'
