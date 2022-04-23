@@ -48,6 +48,19 @@ class Book(AutoDateModel):
         return self.title
 
 
+class Section(AutoDateModel):
+    DEFAULT_SECTION = 'Без раздела'
+
+    title = models.CharField('Название', max_length=255)
+
+    class Meta:
+        verbose_name = 'Раздел'
+        verbose_name_plural = 'Разделы'
+
+    def __str__(self):
+        return f'{self.title}'
+
+
 class Category(AutoDateModel):
     DEFAULT_TITLE = 'Без категории'
     
