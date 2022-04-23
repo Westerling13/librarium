@@ -1,6 +1,7 @@
+
 from rest_framework import serializers
 
-from bookstore.models import Book, Author
+from bookstore.models import Book, Author, BookSection
 
 
 class AuthorSerializer(serializers.ModelSerializer):
@@ -14,4 +15,10 @@ class BookSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Book
-        fields = ['title', 'authors']
+        fields = ['title', 'section', 'authors']
+
+
+class BookSectionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BookSection
+        fields = ['id', 'title']
