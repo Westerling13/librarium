@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from bookstore.models import Author, Book, Category
+from bookstore.models import Author, Book
 
 
 @admin.register(Author)
@@ -10,9 +10,4 @@ class AuthorAdmin(admin.ModelAdmin):
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
-    raw_id_fields = ('authors', 'categories')
-
-
-@admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
-    pass
+    raw_id_fields = ('authors',)
