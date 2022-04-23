@@ -10,15 +10,16 @@ class AuthorSerializer(serializers.ModelSerializer):
         fields = ['id', 'forename', 'surname', 'patronymic']
 
 
+class BookSectionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BookSection
+        fields = ['id', 'title']
+
+
 class BookSerializer(serializers.ModelSerializer):
+    section = BookSectionSerializer()
     authors = AuthorSerializer(many=True)
 
     class Meta:
         model = Book
         fields = ['title', 'section', 'authors']
-
-
-class BookSectionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = BookSection
-        fields = ['id', 'title']
