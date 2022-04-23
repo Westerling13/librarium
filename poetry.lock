@@ -197,6 +197,17 @@ offline = ["drf-spectacular-sidecar"]
 sidecar = ["drf-spectacular-sidecar"]
 
 [[package]]
+name = "drf-spectacular-sidecar"
+version = "2022.4.1"
+description = "Serve self-contained distribution builds of Swagger UI and Redoc with Django"
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+Django = ">=2.2"
+
+[[package]]
 name = "flake8"
 version = "4.0.1"
 description = "the modular source code checker: pep8 pyflakes and co"
@@ -523,11 +534,11 @@ test = ["pytest"]
 
 [[package]]
 name = "typing-extensions"
-version = "4.1.1"
-description = "Backported and Experimental Type Hints for Python 3.6+"
+version = "4.2.0"
+description = "Backported and Experimental Type Hints for Python 3.7+"
 category = "main"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.7"
 
 [[package]]
 name = "uritemplate"
@@ -581,7 +592,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
 python-versions = "~3.7"
-content-hash = "2f9d0657dc136ef2dfa14d2c9ef64d394a99699253abb50ccedbbd80ccf01e5d"
+content-hash = "3a0890613837f44f5ef4fc27e3360bc766e3531c343b8d9daddd9df153af3a59"
 
 [metadata.files]
 appnope = [
@@ -713,6 +724,10 @@ djangorestframework = [
 drf-spectacular = [
     {file = "drf-spectacular-0.22.0.tar.gz", hash = "sha256:1d6bf33f57ec7d973a7a29a4976fab602333e0bcd0ab16fd3b4cd1e7b427613d"},
     {file = "drf_spectacular-0.22.0-py3-none-any.whl", hash = "sha256:229c3dcc5f88275e4742078d4003638970db5382caa16d53c0b3b42b62b1c034"},
+]
+drf-spectacular-sidecar = [
+    {file = "drf-spectacular-sidecar-2022.4.1.tar.gz", hash = "sha256:a243f174ac64deb203a1e373a947b90f973a9afdbb5134e45655997a85b549e0"},
+    {file = "drf_spectacular_sidecar-2022.4.1-py3-none-any.whl", hash = "sha256:66c4f100acaee3f7ec093d4bf33af241492eae619b27f53f519c66ed7e6d5454"},
 ]
 flake8 = [
     {file = "flake8-4.0.1-py2.py3-none-any.whl", hash = "sha256:479b1304f72536a55948cb40a32dce8bb0ffe3501e26eaf292c7e60eb5e0428d"},
@@ -877,8 +892,8 @@ traitlets = [
     {file = "traitlets-5.1.1.tar.gz", hash = "sha256:059f456c5a7c1c82b98c2e8c799f39c9b8128f6d0d46941ee118daace9eb70c7"},
 ]
 typing-extensions = [
-    {file = "typing_extensions-4.1.1-py3-none-any.whl", hash = "sha256:21c85e0fe4b9a155d0799430b0ad741cdce7e359660ccbd8b530613e8df88ce2"},
-    {file = "typing_extensions-4.1.1.tar.gz", hash = "sha256:1a9462dcc3347a79b1f1c0271fbe79e844580bb598bafa1ed208b94da3cdcd42"},
+    {file = "typing_extensions-4.2.0-py3-none-any.whl", hash = "sha256:6657594ee297170d19f67d55c05852a874e7eb634f4f753dbd667855e07c1708"},
+    {file = "typing_extensions-4.2.0.tar.gz", hash = "sha256:f1c24655a0da0d1b67f07e17a5e6b2a105894e6824b92096378bb3668ef02376"},
 ]
 uritemplate = [
     {file = "uritemplate-4.1.1-py2.py3-none-any.whl", hash = "sha256:830c08b8d99bdd312ea4ead05994a38e8936266f84b9a7878232db50b044e02e"},

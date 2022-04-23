@@ -11,7 +11,8 @@ python-dotenv = "~0.20.0"
 djangorestframework = "~3.13.1"
 django-oauth-toolkit = "~1.7.1"
 django-cors-headers = "~3.11.0"
-drf-spectacular = "~0.22.0"
+drf-spectacular = "^0.22.0"
+drf-spectacular-sidecar = "^2022.4.1"
 
 [tool.poetry.dev-dependencies]
 flake8 = "~4.0.1"
