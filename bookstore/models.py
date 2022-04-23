@@ -39,6 +39,13 @@ class Book(AutoDateModel):
     description = models.TextField('Описание', max_length=1000, blank=True)
     dt_release = models.DateField('Дата выхода')
     categories = models.ManyToManyField('Category', verbose_name='Категории')
+    section = models.ForeignKey(
+        'BookSection',
+        verbose_name='Книжный раздел',
+        related_name='books',
+        on_delete=models.SET_NULL,
+        null=True, blank=True,
+    )
 
     class Meta:
         verbose_name = 'Книга'
@@ -48,14 +55,12 @@ class Book(AutoDateModel):
         return self.title
 
 
-class Section(AutoDateModel):
-    DEFAULT_SECTION = 'Без раздела'
-
+class BookSection(AutoDateModel):
     title = models.CharField('Название', max_length=255)
 
     class Meta:
-        verbose_name = 'Раздел'
-        verbose_name_plural = 'Разделы'
+        verbose_name = 'Книжный раздел'
+        verbose_name_plural = 'Книжные разделы'
 
     def __str__(self):
         return f'{self.title}'
