@@ -38,6 +38,7 @@ class Book(AutoDateModel):
     title = models.CharField('Название', max_length=255)
     description = models.TextField('Описание', max_length=1000, blank=True)
     dt_release = models.DateField('Дата выхода')
+    cover = models.ImageField('Обложка', upload_to='bookstore/covers/', null=True, blank=True)
     section = models.ForeignKey(
         'BookSection',
         verbose_name='Книжный раздел',
