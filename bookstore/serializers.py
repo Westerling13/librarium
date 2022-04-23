@@ -1,4 +1,3 @@
-
 from rest_framework import serializers
 
 from bookstore.models import Book, Author, BookSection
@@ -17,9 +16,13 @@ class BookSectionSerializer(serializers.ModelSerializer):
 
 
 class BookSerializer(serializers.ModelSerializer):
-    section = BookSectionSerializer()
-    authors = AuthorSerializer(many=True)
+    cover = serializers.SerializerMethodField(help_text='URL обложки')
+    section = BookSectionSerializer(help_text='Книжный раздел')
+    authors = AuthorSerializer(help_text='Список авторов', many=True)
 
     class Meta:
         model = Book
-        fields = ['title', 'section', 'authors', 'cover', 'free_copies_number']
+        fields = ['id', 'title', 'section', 'authors', 'cover', 'free_copies_number']
+
+    def get_cover(self, book: Book) -> str:
+        return book.cover.url if book.cover.name else ''
