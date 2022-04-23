@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from bookstore.models import Author, Book
+from bookstore.models import Author, Book, BookSection
 
 
 @admin.register(Author)
@@ -11,3 +11,8 @@ class AuthorAdmin(admin.ModelAdmin):
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
     raw_id_fields = ('authors',)
+
+
+@admin.register(BookSection)
+class BookSectionAdmin(admin.ModelAdmin):
+    pass
