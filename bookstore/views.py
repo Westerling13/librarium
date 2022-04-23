@@ -1,12 +1,7 @@
-from rest_framework.generics import ListCreateAPIView, RetrieveAPIView
+from rest_framework.generics import RetrieveAPIView, ListAPIView
 
-from bookstore.models import Book, Category
-from bookstore.serializers import BookListCreateSerializer, BookSerializer, CategorySerializer
-
-
-class BookListCreateAPIView(ListCreateAPIView):
-    serializer_class = BookListCreateSerializer
-    queryset = Book.objects.all()
+from bookstore.models import Book
+from bookstore.serializers import BookSerializer
 
 
 class BookDetailAPIView(RetrieveAPIView):
@@ -15,6 +10,6 @@ class BookDetailAPIView(RetrieveAPIView):
     lookup_url_kwarg = 'book_id'
 
 
-class CategoryListCreateAPIView(ListCreateAPIView):
-    serializer_class = CategorySerializer
-    queryset = Category.objects.all()
+class BookListAPIView(ListAPIView):
+    serializer_class = BookSerializer
+    queryset = Book.objects.all()
