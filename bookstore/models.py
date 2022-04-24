@@ -1,3 +1,4 @@
+from django.core.validators import MinValueValidator
 from django.db import models
 
 from profiles.models import AutoDateModel
@@ -39,6 +40,8 @@ class Book(AutoDateModel):
     description = models.TextField('Описание', max_length=1000, blank=True)
     dt_release = models.DateField('Дата выхода')
     cover = models.ImageField('Обложка', upload_to='bookstore/covers/', null=True, blank=True)
+    publication_year = models.PositiveSmallIntegerField('Год издания', validators=[MinValueValidator(1900)], null=True)
+    edition = models.PositiveSmallIntegerField('Номер издания', null=True)
     section = models.ForeignKey(
         'BookSection',
         verbose_name='Книжный раздел',
