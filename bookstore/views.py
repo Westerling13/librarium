@@ -2,11 +2,11 @@ from drf_spectacular.utils import extend_schema
 from rest_framework.generics import RetrieveAPIView, ListAPIView
 
 from bookstore.models import Book
-from bookstore.serializers import BookSerializer
+from bookstore.serializers import BookSerializer, BookDetailSerializer
 
 
 class BookDetailAPIView(RetrieveAPIView):
-    serializer_class = BookSerializer
+    serializer_class = BookDetailSerializer
     queryset = Book.objects.all()
     lookup_url_kwarg = 'book_id'
 

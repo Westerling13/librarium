@@ -30,3 +30,11 @@ class BookSerializer(serializers.ModelSerializer):
 
     def get_is_available(self, book: Book) -> bool:
         return bool(book.free_copies_number)
+
+
+class BookDetailSerializer(BookSerializer):
+    class Meta:
+        model = Book
+        fields = [
+            'id', 'title', 'section', 'description', 'authors', 'cover', 'is_available', 'edition', 'publication_year',
+        ]
