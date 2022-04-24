@@ -13,7 +13,7 @@ class BookDetailAPIView(RetrieveAPIView):
 
 class BookListAPIView(ListAPIView):
     serializer_class = BookSerializer
-    queryset = Book.objects.all()
+    queryset = Book.objects.all().order_by('section__number', 'title')
 
     @extend_schema(summary='Список книг')
     def get(self, request, *args, **kwargs):
