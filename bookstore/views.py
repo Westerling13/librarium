@@ -1,3 +1,4 @@
+from drf_spectacular.utils import extend_schema
 from rest_framework.generics import RetrieveAPIView, ListAPIView
 
 from bookstore.models import Book
@@ -13,3 +14,8 @@ class BookDetailAPIView(RetrieveAPIView):
 class BookListAPIView(ListAPIView):
     serializer_class = BookSerializer
     queryset = Book.objects.all()
+
+    @extend_schema(summary='Список книг')
+    def get(self, request, *args, **kwargs):
+        """Список книг"""
+        return self.list(request, *args, **kwargs)
