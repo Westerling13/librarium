@@ -38,7 +38,6 @@ class Book(AutoDateModel):
     authors = models.ManyToManyField('Author', verbose_name='Авторы')
     title = models.CharField('Название', max_length=255)
     description = models.TextField('Описание', max_length=1000, blank=True)
-    dt_release = models.DateField('Дата выхода')
     cover = models.ImageField('Обложка', upload_to='bookstore/covers/', null=True, blank=True)
     publication_year = models.PositiveSmallIntegerField('Год издания', validators=[MinValueValidator(1900)], null=True)
     edition = models.PositiveSmallIntegerField('Номер издания', null=True)
