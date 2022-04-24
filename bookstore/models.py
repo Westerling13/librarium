@@ -58,6 +58,7 @@ class Book(AutoDateModel):
 
 class BookSection(AutoDateModel):
     title = models.CharField('Название', max_length=255)
+    number = models.PositiveIntegerField('Номер раздела', unique=True, null=True, blank=True)
 
     class Meta:
         verbose_name = 'Книжный раздел'
