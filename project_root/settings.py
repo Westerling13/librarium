@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'drf_spectacular_sidecar',
     'profiles',
     'bookstore',
+    'bookshelves',
 ]
 
 MIDDLEWARE = [
