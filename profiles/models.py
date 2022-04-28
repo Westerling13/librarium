@@ -11,6 +11,13 @@ class AutoDateModel(models.Model):
 
 
 class User(AbstractUser):
+    books = models.ManyToManyField(
+        'bookstore.Book',
+        verbose_name='Книги пользователя',
+        through='bookshelves.UserBook',
+        related_name='users',
+    )
+
     class Meta:
         verbose_name = 'Пользователь'
         verbose_name_plural = 'Пользователи'
