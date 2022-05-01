@@ -4,7 +4,7 @@ from rest_framework.exceptions import ValidationError
 from profiles.user import User
 
 
-class UsersCreateSerializer(serializers.ModelSerializer):
+class UserCreateSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
     password2 = serializers.CharField(write_only=True)
 
@@ -24,7 +24,7 @@ class UsersCreateSerializer(serializers.ModelSerializer):
         return User.objects.create_user(**validated_data)
 
 
-class UsersLoginSerializer(serializers.ModelSerializer):
+class UserLoginSerializer(serializers.ModelSerializer):
     username = serializers.CharField()
     password = serializers.CharField(write_only=True)
 
