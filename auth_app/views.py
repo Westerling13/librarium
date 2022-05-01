@@ -1,16 +1,31 @@
 from django.contrib.auth import login, authenticate, logout
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import ensure_csrf_cookie
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.generics import GenericAPIView
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from profiles.serializers import UserCreateSerializer, UserLoginSerializer
 
 
+@method_decorator(ensure_csrf_cookie, name='dispatch')
+class CsrfTokenRetrieveAPIView(APIView):
+    permission_classes = [AllowAny]
+
+    @extend_schema(summary='Получить csrftoken', request=None, responses={
+        status.HTTP_204_NO_CONTENT: None,
+    })
+    def get(self, request, *args, **kwargs):
+        """Получение Cookie с csrf-токеном"""
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
 class RegistrationAPIView(GenericAPIView):
     serializer_class = UserCreateSerializer
+    permission_classes = [~IsAuthenticated]
 
     @extend_schema(summary='Регистрация', responses={
         status.HTTP_201_CREATED: None,
@@ -26,7 +41,7 @@ class RegistrationAPIView(GenericAPIView):
 
 class LoginAPIView(GenericAPIView):
     serializer_class = UserLoginSerializer
-    permission_classes = [AllowAny]
+    permission_classes = [~IsAuthenticated]
 
     @extend_schema(summary='Логин', responses={
         status.HTTP_204_NO_CONTENT: None,
