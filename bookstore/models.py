@@ -96,6 +96,7 @@ class BookReadingRecord(AutoDateModel):
     class Meta:
         verbose_name = 'Запись чтения книги'
         verbose_name_plural = 'Записи чтения книг'
+        unique_together = ['user', 'book']
 
     def __str__(self):
         return f'Запись чтения книги#{self.id}'
