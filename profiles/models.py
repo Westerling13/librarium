@@ -35,3 +35,33 @@ class Profile(AutoDateModel):
 
     def __str__(self):
         return f'Профиль - {self.user.username}'
+
+
+class LibraryRecord(AutoDateModel):
+    READING = 'reading'
+    FINISHED = 'finished'
+    STATUS_CHOICES = (
+        (READING, 'Сейчас читаю'),
+        (FINISHED, 'Прочитаны'),
+    )
+
+    user = models.ForeignKey(
+        User,
+        verbose_name='Пользователь',
+        on_delete=models.CASCADE,
+        related_name='library_records',
+    )
+    book = models.ForeignKey(
+        'bookstore.Book',
+        verbose_name='Книга',
+        on_delete=models.PROTECT,
+        related_name='library_records',
+    )
+    status = models.CharField('Статус', choices=STATUS_CHOICES, default=READING, max_length=255)
+
+    class Meta:
+        verbose_name = 'Библиотечная запись'
+        verbose_name_plural = 'Библиотечные записи'
+
+    def __str__(self):
+        return f'Библиотечная запись#{self.id}'
