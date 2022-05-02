@@ -1,12 +1,9 @@
-from typing import Optional
-
 from django.db.transaction import atomic
 from rest_framework import serializers, exceptions
 from rest_framework.exceptions import ValidationError
 from rest_framework.generics import get_object_or_404
 
 from bookstore.models import Book
-from bookstore.serializers import BookDetailSerializer
 from profiles.models import LibraryRecord
 from profiles.user import User
 
