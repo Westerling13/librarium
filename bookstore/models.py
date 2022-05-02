@@ -2,7 +2,6 @@ from django.core.validators import MinValueValidator
 from django.db import models
 
 from profiles.models import AutoDateModel
-from profiles.user import User
 
 
 class AuthorQuerySet(models.QuerySet):
@@ -69,34 +68,3 @@ class BookSection(AutoDateModel):
 
     def __str__(self):
         return f'{self.title}'
-
-
-class BookReadingRecord(AutoDateModel):
-    READING = 'reading'
-    FINISHED = 'finished'
-    STATUS_CHOICES = (
-        (READING, 'Сейчас читаю'),
-        (FINISHED, 'Прочитаны'),
-    )
-
-    user = models.ForeignKey(
-        User,
-        verbose_name='Пользователь',
-        on_delete=models.CASCADE,
-        related_name='book_reading_records',
-    )
-    book = models.ForeignKey(
-        'bookstore.Book',
-        verbose_name='Книга',
-        on_delete=models.PROTECT,
-        related_name='reading_records',
-    )
-    status = models.CharField('Статус', choices=STATUS_CHOICES, default=READING, max_length=255)
-
-    class Meta:
-        verbose_name = 'Запись чтения книги'
-        verbose_name_plural = 'Записи чтения книг'
-        unique_together = ['user', 'book']
-
-    def __str__(self):
-        return f'Запись чтения книги#{self.id}'

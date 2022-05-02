@@ -1,6 +1,6 @@
-from rest_framework import serializers, exceptions
+from rest_framework import serializers
 
-from bookstore.models import Book, Author, BookSection, BookReadingRecord
+from bookstore.models import Book, Author, BookSection
 
 
 class AuthorSerializer(serializers.ModelSerializer):
@@ -38,26 +38,3 @@ class BookDetailSerializer(BookSerializer):
         fields = [
             'id', 'title', 'section', 'description', 'authors', 'cover', 'is_available', 'edition', 'publication_year',
         ]
-
-
-class BookReadingRecordSerializer(serializers.ModelSerializer):
-    class ValidationMessages:
-        BOOK_IS_ALREADY_BEING_READ = 'Вы уже читаете эту книгу.'
-        NO_FREE_BOOKS = 'Нет свободных экземпляров.'
-
-    class Meta:
-        model = BookReadingRecord
-        fields = []
-
-    def validate(self, data: dict) -> dict:
-        book, user = self.context['book'], self.context['request'].user
-        if user.book_reading_records.filter(book=book).exists():
-            raise exceptions.ValidationError(self.ValidationMessages.BOOK_IS_ALREADY_BEING_READ)
-
-        if not book.free_copies_number:
-            raise exceptions.ValidationError(self.ValidationMessages.NO_FREE_BOOKS)
-
-        data['book'] = book
-        data['user'] = user
-
-        return data
