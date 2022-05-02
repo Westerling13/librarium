@@ -1,3 +1,6 @@
+import datetime
+
+from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models, transaction
 
@@ -37,6 +40,10 @@ class Profile(AutoDateModel):
         return f'Профиль - {self.user.username}'
 
 
+def get_return_date():
+    return datetime.datetime.now().date() + settings.READING_TIMEDELTA
+
+
 class LibraryRecord(AutoDateModel):
     READING = 'reading'
     FINISHED = 'finished'
@@ -58,6 +65,7 @@ class LibraryRecord(AutoDateModel):
         related_name='library_records',
     )
     status = models.CharField('Статус', choices=STATUS_CHOICES, default=READING, max_length=255)
+    dt_return = models.DateField('Дата возврата книги', default=get_return_date)
 
     class Meta:
         verbose_name = 'Библиотечная запись'
