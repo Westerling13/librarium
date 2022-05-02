@@ -42,7 +42,11 @@ class LibraryRecordSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = LibraryRecord
-        fields = ['book']
+        fields = ['id', 'book', 'status']
+        extra_kwargs = {
+            'book': {'write_only': True},
+            'status': {'read_only': True},
+        }
 
     def validate(self, data: dict) -> dict:
         user = self.context['request'].user
@@ -58,6 +62,6 @@ class LibraryRecordSerializer(serializers.ModelSerializer):
     @atomic
     def create(self, validated_data: dict) -> LibraryRecord:
         reading_record = super().create(validated_data)
-        self.context['book'].free_copies_number -= 1
-        self.context['book'].save(update_fields=['free_copies_number', 'dt_updated'])
+        validated_data['book'].free_copies_number -= 1
+        validated_data['book'].save(update_fields=['free_copies_number', 'dt_updated'])
         return reading_record
