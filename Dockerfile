@@ -9,4 +9,3 @@ COPY pyproject.toml poetry.lock /code/
 RUN poetry install
 COPY . /code/
 RUN python3 manage.py migrate
-RUN python3 manage.py createsuperuser
