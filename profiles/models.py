@@ -3,6 +3,7 @@ import datetime
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models, transaction
+from django.db.transaction import atomic
 
 
 class AutoDateModel(models.Model):
@@ -71,5 +72,13 @@ class LibraryRecord(AutoDateModel):
         verbose_name = 'Библиотечная запись'
         verbose_name_plural = 'Библиотечные записи'
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f'Библиотечная запись#{self.id}'
+
+    @atomic
+    def return_book(self) -> None:
+        self.status = self.FINISHED
+        self.dt_return = datetime.datetime.now().date()
+        self.book.free_copies_number += 1
+        self.save(update_fields=['status', 'dt_return', 'dt_updated'])
+        self.book.save(update_fields=['free_copies_number', 'dt_updated'])
