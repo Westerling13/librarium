@@ -1,6 +1,8 @@
+from django.db.transaction import atomic
 from rest_framework import serializers
+from rest_framework.exceptions import ValidationError
 
-from library.models import Book, Author, BookSection
+from library.models import Book, Author, BookSection, LibraryRecord
 
 
 class AuthorSerializer(serializers.ModelSerializer):
@@ -38,3 +40,31 @@ class BookDetailSerializer(BookSerializer):
         fields = [
             'id', 'title', 'section', 'description', 'authors', 'cover', 'is_available', 'edition', 'publication_year',
         ]
+
+
+class BookOperateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Book
+        fields = []
+
+    BOOK_ALREADY_READING_VALIDATION_MESSAGE = 'Вы уже читаете эту книгу.'
+    NO_FREE_BOOKS_VALIDATION_MESSAGE = 'Нет свободных экземпляров.'
+
+    def validate(self, data):
+        if self.instance.library_records.filter(
+            user=self.context['request'].user, status=LibraryRecord.READING,
+        ).exists():
+            raise ValidationError(self.BOOK_ALREADY_READING_VALIDATION_MESSAGE)
+
+        if self.instance.free_copies_number:
+            raise ValidationError(self.NO_FREE_BOOKS_VALIDATION_MESSAGE)
+
+        return data
+
+    @atomic
+    def update(self, instance: Book, validated_data: dict) -> Book:
+        user = self.context['request'].user
+        instance.library_records.create(user=user)
+        instance.free_copies_number -= 1
+        instance.save(update_fields=['free_copies_number', 'dt_updated'])
+        return instance
