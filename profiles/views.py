@@ -33,10 +33,10 @@ class ProfileLibraryRecordDetailAPIView(GenericAPIView, UpdateModelMixin):
     lookup_url_kwarg = 'book_id'
     lookup_field = 'book_id'
 
-    def get_object(self):
+    def get_object(self) -> LibraryRecord:
         return get_object_or_404(LibraryRecord, status=LibraryRecord.READING, book_id=self.kwargs['book_id'])
 
     @extend_schema(summary='Вернуть книгу')
-    def post(self, request, *args, **kwargs):
+    def post(self, request: Request, *args, **kwargs) -> Response:
         """Вернуть книгу, если она находится в процессе чтения."""
         return self.update(request, *args, **kwargs)
