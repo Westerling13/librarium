@@ -42,7 +42,7 @@ class Book(AutoDateModel):
     authors = models.ManyToManyField('Author', verbose_name='Авторы')
     title = models.CharField('Название', max_length=255)
     description = models.TextField('Описание', max_length=1000, blank=True)
-    cover = models.ImageField('Обложка', upload_to='bookstore/covers/', null=True, blank=True)
+    cover = models.ImageField('Обложка', upload_to='library/covers/', null=True, blank=True)
     publication_year = models.PositiveSmallIntegerField('Год издания', validators=[MinValueValidator(1900)], null=True)
     edition = models.PositiveSmallIntegerField('Номер издания', null=True)
     section = models.ForeignKey(
@@ -93,7 +93,7 @@ class LibraryRecord(AutoDateModel):
         related_name='library_records',
     )
     book = models.ForeignKey(
-        'bookstore.Book',
+        'library.Book',
         verbose_name='Книга',
         on_delete=models.PROTECT,
         related_name='library_records',

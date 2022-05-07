@@ -48,8 +48,8 @@ class Migration(migrations.Migration):
                 ('title', models.CharField(max_length=255, verbose_name='Название')),
                 ('description', models.TextField(blank=True, max_length=1000, verbose_name='Описание')),
                 ('dt_release', models.DateField(verbose_name='Дата выхода')),
-                ('authors', models.ManyToManyField(to='bookstore.Author', verbose_name='Авторы')),
-                ('categories', models.ManyToManyField(to='bookstore.Category', verbose_name='Категории')),
+                ('authors', models.ManyToManyField(to='library.Author', verbose_name='Авторы')),
+                ('categories', models.ManyToManyField(to='library.Category', verbose_name='Категории')),
             ],
             options={
                 'verbose_name': 'Книга',

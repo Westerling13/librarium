@@ -5,14 +5,14 @@ from django.db import migrations
 
 def create_default_category(apps, schema_editor):
     DEFAULT_CATEGORY = 'Без категории'
-    Category = apps.get_model('bookstore', 'Category')
+    Category = apps.get_model('library', 'Category')
     Category.objects.get_or_create(title=DEFAULT_CATEGORY)
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('bookstore', '0001_initial'),
+        ('library', '0001_initial'),
     ]
 
     operations = [

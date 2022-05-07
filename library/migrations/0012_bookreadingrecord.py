@@ -9,7 +9,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('bookstore', '0011_remove_book_dt_release'),
+        ('library', '0011_remove_book_dt_release'),
     ]
 
     operations = [
@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('dt_created', models.DateTimeField(auto_now_add=True, verbose_name='Дата создания')),
                 ('dt_updated', models.DateTimeField(auto_now=True, verbose_name='Дата изменения')),
                 ('status', models.CharField(choices=[('reading', 'Сейчас читаю'), ('finished', 'Прочитаны')], default='reading', max_length=255, verbose_name='Статус')),
-                ('book', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='reading_records', to='bookstore.book', verbose_name='Книга')),
+                ('book', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, related_name='reading_records', to='library.book', verbose_name='Книга')),
                 ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='book_reading_records', to=settings.AUTH_USER_MODEL, verbose_name='Пользователь')),
             ],
             options={

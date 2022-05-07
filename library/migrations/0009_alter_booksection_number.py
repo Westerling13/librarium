@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('bookstore', '0008_booksection_number'),
+        ('library', '0008_booksection_number'),
     ]
 
     operations = [

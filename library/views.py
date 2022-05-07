@@ -1,8 +1,8 @@
 from drf_spectacular.utils import extend_schema
 from rest_framework.generics import RetrieveAPIView, ListAPIView
 
-from bookstore.models import Book
-from bookstore.serializers import BookSerializer, BookDetailSerializer
+from library.models import Book
+from library.serializers import BookSerializer, BookDetailSerializer
 
 
 class BookDetailAPIView(RetrieveAPIView):

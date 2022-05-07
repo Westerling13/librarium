@@ -8,7 +8,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('bookstore', '0012_bookreadingrecord'),
+        ('library', '0012_bookreadingrecord'),
     ]
 
     operations = [
