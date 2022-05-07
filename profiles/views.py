@@ -36,5 +36,7 @@ class ProfileLibraryRecordDetailAPIView(GenericAPIView, UpdateModelMixin):
     def get_object(self):
         return get_object_or_404(LibraryRecord, status=LibraryRecord.READING, book_id=self.kwargs['book_id'])
 
+    @extend_schema(summary='Вернуть книгу')
     def post(self, request, *args, **kwargs):
+        """Вернуть книгу, если она находится в процессе чтения."""
         return self.update(request, *args, **kwargs)
