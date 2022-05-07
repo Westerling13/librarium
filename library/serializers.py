@@ -56,7 +56,7 @@ class BookOperateSerializer(serializers.ModelSerializer):
         ).exists():
             raise ValidationError(self.BOOK_ALREADY_READING_VALIDATION_MESSAGE)
 
-        if self.instance.free_copies_number:
+        if not self.instance.free_copies_number:
             raise ValidationError(self.NO_FREE_BOOKS_VALIDATION_MESSAGE)
 
         return data
