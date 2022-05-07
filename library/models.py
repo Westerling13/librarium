@@ -3,7 +3,6 @@ import datetime
 from django.conf import settings
 from django.core.validators import MinValueValidator
 from django.db import models
-from django.db.transaction import atomic
 
 from profiles.models import AutoDateModel
 
@@ -107,11 +106,3 @@ class LibraryRecord(AutoDateModel):
 
     def __str__(self) -> str:
         return f'Библиотечная запись#{self.id}'
-
-    @atomic
-    def return_book(self) -> None:
-        self.status = self.FINISHED
-        self.dt_return = datetime.datetime.now().date()
-        self.book.free_copies_number += 1
-        self.save(update_fields=['status', 'dt_return', 'dt_updated'])
-        self.book.save(update_fields=['free_copies_number', 'dt_updated'])
