@@ -1,5 +1,7 @@
+import datetime
 from typing import List
 
+from django.db.transaction import atomic
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
@@ -46,6 +48,11 @@ class ProfileLibraryRecordSerializer(serializers.ModelSerializer):
     class Meta:
         model = LibraryRecord
         fields = ['status', 'dt_return', 'id', 'cover', 'title', 'authors']
+        extra_kwargs = {
+            'id': {'read_only': True},
+            'dt_return': {'read_only': True},
+            'status': {'read_only': True},
+        }
 
     def get_id(self, library_record: LibraryRecord) -> int:
         return library_record.book.id
@@ -58,3 +65,13 @@ class ProfileLibraryRecordSerializer(serializers.ModelSerializer):
 
     def get_authors(self, library_record: LibraryRecord) -> List[dict]:
         return AuthorSerializer(library_record.book.authors, many=True).data
+
+    @atomic
+    def update(self, instance: LibraryRecord, validated_data: dict) -> LibraryRecord:
+        instance.status = LibraryRecord.FINISHED
+        instance.dt_return = datetime.datetime.now().date()
+        instance.book.free_copies_number += 1
+        instance.save(update_fields=['status', 'dt_updated', 'dt_return'])
+        instance.book.save(update_fields=['free_copies_number', 'dt_updated'])
+
+        return instance
