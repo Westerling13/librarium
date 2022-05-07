@@ -14,7 +14,7 @@ class AuthorSerializer(serializers.ModelSerializer):
 class BookSectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = BookSection
-        fields = ['number', 'title']
+        fields = ['number', 'key', 'title']
 
 
 class BookSerializer(serializers.ModelSerializer):
