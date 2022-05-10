@@ -6,7 +6,7 @@ from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
 from library.models import LibraryRecord
-from library.serializers import AuthorSerializer
+from library.serializers import AuthorSerializer, BookSectionSerializer
 from profiles.user import User
 
 
@@ -44,10 +44,12 @@ class ProfileLibraryRecordSerializer(serializers.ModelSerializer):
     cover = serializers.SerializerMethodField(help_text='Обложка книги')
     title = serializers.SerializerMethodField(help_text='Название книги')
     authors = serializers.SerializerMethodField(help_text='Авторы книги')
+    is_available = serializers.SerializerMethodField(help_text='Книга доступна для взятия')
+    section = serializers.SerializerMethodField(help_text='Книжный раздел')
 
     class Meta:
         model = LibraryRecord
-        fields = ['status', 'dt_return', 'id', 'cover', 'title', 'authors']
+        fields = ['status', 'dt_return', 'id', 'cover', 'title', 'authors', 'is_available', 'section']
         extra_kwargs = {
             'id': {'read_only': True},
             'dt_return': {'read_only': True},
@@ -65,6 +67,12 @@ class ProfileLibraryRecordSerializer(serializers.ModelSerializer):
 
     def get_authors(self, library_record: LibraryRecord) -> List[dict]:
         return AuthorSerializer(library_record.book.authors, many=True).data
+
+    def get_is_available(self, library_record: LibraryRecord) -> bool:
+        return bool(library_record.book.free_copies_number)
+
+    def get_section(self, library_record: LibraryRecord) -> dict:
+        return BookSectionSerializer(library_record.book.section).data
 
     @atomic
     def update(self, instance: LibraryRecord, validated_data: dict) -> LibraryRecord:
