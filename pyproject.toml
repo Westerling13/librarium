@@ -5,18 +5,18 @@ description = ""
 authors = ["Alexander Munz <a_munz@list.ru>"]
 
 [tool.poetry.dependencies]
-python = "~3.7"
-django = "~3.2.13"
-python-dotenv = "~0.20.0"
-djangorestframework = "~3.13.1"
-django-oauth-toolkit = "~1.7.1"
-django-cors-headers = "~3.11.0"
-drf-spectacular = "^0.22.0"
-drf-spectacular-sidecar = "^2022.4.1"
+python = "3.7.*"
+django = "3.2.13"
+python-dotenv = "0.20.0"
+djangorestframework = "3.13.1"
+django-oauth-toolkit = "1.7.1"
+django-cors-headers = "3.11.0"
+drf-spectacular = "0.22.0"
+drf-spectacular-sidecar = "2022.4.1"
 Pillow = "9.0.1"
 
 [tool.poetry.dev-dependencies]
-flake8 = "~4.0.1"
+flake8 = "4.0.1"
 ipython = "*"
 
 [build-system]
